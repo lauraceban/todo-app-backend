@@ -53,9 +53,9 @@ app.post("/newTask", function (request, response) {
 app.put("/tasks/:id", function(request, response) {
 
   const updatedTasks = request.body;
-  const id = request.params.id;
+  const id = request.params.taskId;
  
-  connection.query('UPDATE List_of_tasks SET ? WHERE id=?', [updatedTasks, id], function (err) {
+  connection.query('UPDATE List_of_tasks SET ? WHERE taskId=?', [updatedTasks, id], function (err) {
     if (err) {
       response.status(500).json({error: err});
     } else {
@@ -69,9 +69,9 @@ app.put("/tasks/:id", function(request, response) {
 //DELETE 
 app.delete("/tasks/:id", function (request, response) {
 
-  const id = request.params.id;
+  const id = request.params.taskId;
  
-  connection.query('DELETE FROM List_of_tasks WHERE id=?', [id], function (err) {
+  connection.query('DELETE FROM List_of_tasks WHERE taskId=?', [id], function (err) {
     if (err) {
       response.status(500).json({error: err});
     } else {
