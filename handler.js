@@ -20,7 +20,7 @@ const connection = mysql.createConnection({
 //GET 
 app.get("/tasks", function (request, response) {
   
-  connection.query(`SELECT * FROM List_of_tasks`, function (err, data) {
+  connection.query('SELECT * FROM List_of_tasks', function (err, data) {
     if (err) {
       response.status(500).json({error: err});
     } else {
@@ -35,12 +35,12 @@ app.get("/tasks", function (request, response) {
 app.post("/newTask", function (request, response) {
 
   const newTask = request.body;
- 
-  connection.query(`INSERT INTO List_of_tasks SET ?`, [newTask], function (err, data) {
+  
+  connection.query('INSERT INTO List_of_tasks SET ?', [newTask], function (err, data) {
     if (err) {
       response.status(500).json({error: err});
     } else {
-      newTask.id = data.insertId;
+      newTask.taskId = data.insertId;
       response.status(201).json(newTask);
     }
   }); 
@@ -55,8 +55,7 @@ app.put("/tasks/:id", function(request, response) {
   const updatedTasks = request.body;
   const id = request.params.id;
  
-  connection.query(`UPDATE List_of_tasks SET ? WHERE id=?`, [updatedTasks, id], 
-  function (err) {
+  connection.query('UPDATE List_of_tasks SET ? WHERE id=?', [updatedTasks, id], function (err) {
     if (err) {
       response.status(500).json({error: err});
     } else {
@@ -70,9 +69,9 @@ app.put("/tasks/:id", function(request, response) {
 //DELETE 
 app.delete("/tasks/:id", function (request, response) {
 
-  const id = request.params.taskId;
+  const id = request.params.id;
  
-  connection.query(`DELETE FROM List_of_tasks WHERE taskId=?`, [id], function (err) {
+  connection.query('DELETE FROM List_of_tasks WHERE id=?', [id], function (err) {
     if (err) {
       response.status(500).json({error: err});
     } else {
